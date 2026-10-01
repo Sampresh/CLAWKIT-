@@ -39,10 +39,12 @@ export function SiteFooter() {
           <p className="max-w-sm text-sm leading-6 text-muted">
             Seizure tracking for dogs, built to be calm and quick when it matters most.
           </p>
-          <div>
-            <p className="mb-3 text-sm font-semibold text-ink">Tips for epileptic dog care, monthly.</p>
-            <NewsletterForm />
-          </div>
+          {site.apiEnabled && (
+            <div>
+              <p className="mb-3 text-sm font-semibold text-ink">Tips for epileptic dog care, monthly.</p>
+              <NewsletterForm />
+            </div>
+          )}
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
           {columns.map((col) => (

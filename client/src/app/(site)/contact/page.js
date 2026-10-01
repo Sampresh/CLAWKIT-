@@ -1,6 +1,7 @@
 import { Mail, Stethoscope } from 'lucide-react';
 import { ContactForm } from '@/components/common/ContactForm';
 import { PageHeader } from '@/components/common/PageHeader';
+import { Button } from '@/components/ui/Button';
 import { buildMetadata } from '@/lib/seo';
 import { site } from '@/lib/site';
 
@@ -16,7 +17,24 @@ export default function ContactPage() {
       <PageHeader eyebrow="Contact" title="We’d love to hear from you." intro="Questions, feedback, or ideas for the app. We read every message." />
       <div className="container-page grid gap-12 pb-24 lg:grid-cols-[1.6fr_1fr]">
         <div className="rounded-[28px] border border-line bg-surface p-6 sm:p-10">
-          <ContactForm />
+          {site.apiEnabled ? (
+            <ContactForm />
+          ) : (
+            <div>
+              <p className="text-lg font-semibold text-ink">Send us an email</p>
+              <p className="mt-2 text-muted">
+                Write to us at{' '}
+                <a href={`mailto:${site.email}`} className="text-brand hover:underline">
+                  {site.email}
+                </a>{' '}
+                and we’ll get back to you.
+              </p>
+              <Button href={`mailto:${site.email}`} className="mt-6">
+                <Mail className="h-4 w-4" aria-hidden />
+                Email us
+              </Button>
+            </div>
+          )}
         </div>
         <aside className="space-y-6">
           <div className="rounded-[28px] border border-line bg-surface p-6">
