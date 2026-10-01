@@ -1,19 +1,20 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { PawPrint } from 'lucide-react';
+import { ICON_SRC } from '@/lib/brand';
 
-export function LogoMark({ size = 30 }) {
-  return (
-    <span className="fsh-brand-dot" style={{ width: size, height: size }}>
-      <PawPrint size={Math.round(size * 0.55)} strokeWidth={2.4} aria-hidden />
-    </span>
-  );
+export function LogoMark({ size = 32 }) {
+  return <Image src={ICON_SRC} alt="" width={size} height={size} className="fsh-brand-mark" priority />;
 }
 
+// Horizontal lockup for the nav and footer; the stacked logo is /images/clawkit-logo.png.
 export function Logo({ href = '/' }) {
   return (
     <Link href={href} className="fsh-brand" aria-label="CLAWKIT home">
       <LogoMark />
-      CLAWKIT
+      <span>
+        <span className="fsh-brand-claw">CLAW</span>
+        <span className="fsh-brand-kit">KIT</span>
+      </span>
     </Link>
   );
 }

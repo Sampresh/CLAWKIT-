@@ -6,37 +6,37 @@ const features = [
     icon: Timer,
     title: 'One-tap seizure timer',
     body: 'Big, easy targets for shaky hands. Start, stop and save without looking away from your dog.',
-    color: '#ff6a3d',
+    color: '#236abb',
   },
   {
     icon: NotebookPen,
     title: 'Detailed episode log',
     body: 'Record seizure type, severity, recovery time and notes, so nothing gets forgotten afterwards.',
-    color: '#ff3d7f',
+    color: '#5586b6',
   },
   {
     icon: ChartLine,
     title: 'Trends and clusters',
     body: 'Understand how often seizures happen and whether treatment is working, at a glance.',
-    color: '#8b5cf6',
+    color: '#0b3c6e',
   },
   {
     icon: BellRing,
     title: 'Medication reminders',
     body: 'Schedule every dose and keep a history of what was given and when.',
-    color: '#3b82f6',
+    color: '#2b8fc9',
   },
   {
     icon: FileText,
     title: 'Vet-ready reports',
     body: 'Share a tidy summary before appointments instead of scrolling through your camera roll.',
-    color: '#0ea5a4',
+    color: '#3f7fa8',
   },
   {
     icon: ShieldCheck,
     title: 'Private by design',
     body: 'Your dog’s health history belongs to you. We never sell your data.',
-    color: '#16a34a',
+    color: '#1d5a96',
   },
 ];
 

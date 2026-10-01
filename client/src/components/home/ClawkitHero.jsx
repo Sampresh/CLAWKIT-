@@ -7,25 +7,25 @@ import { heroFrames } from '@/lib/heroFrames';
 
 const steps = [
   {
-    from: 0.02, to: 0.27, color: '#ff6a3d', num: '01', total: '04', icon: <Timer size={18} />,
+    from: 0.02, to: 0.27, color: '#236abb', num: '01', total: '04', icon: <Timer size={18} />,
     title: 'Log a seizure in one tap.',
     description: 'Start the timer the moment it begins. CLAWKIT records duration, time and severity while you stay with your dog.',
     label: 'Log',
   },
   {
-    from: 0.27, to: 0.52, color: '#ff3d7f', num: '02', total: '04', icon: <ChartLine size={18} />,
+    from: 0.27, to: 0.52, color: '#5586b6', num: '02', total: '04', icon: <ChartLine size={18} />,
     title: 'See the patterns.',
     description: 'Clear charts show frequency, clusters and possible triggers across weeks and months.',
     label: 'Insights',
   },
   {
-    from: 0.52, to: 0.77, color: '#8b5cf6', num: '03', total: '04', icon: <Pill size={18} />,
+    from: 0.52, to: 0.77, color: '#0b3c6e', num: '03', total: '04', icon: <Pill size={18} />,
     title: 'Never miss a dose.',
     description: 'Medication reminders and a full dosing history keep anti-seizure meds on schedule.',
     label: 'Meds',
   },
   {
-    from: 0.77, to: 1.01, color: '#3b82f6', num: '04', total: '04', icon: <Stethoscope size={18} />,
+    from: 0.77, to: 1.01, color: '#2b8fc9', num: '04', total: '04', icon: <Stethoscope size={18} />,
     title: 'Share with your vet.',
     description: 'Export a clean report and walk into every appointment with the whole picture.',
     label: 'Vet reports',
@@ -47,6 +47,12 @@ export function ClawkitHero() {
       framePath={heroFrames.path}
       eagerCount={heroFrames.eager}
       scrollHeight={heroFrames.scrollHeight}
+      loaderArt={
+        // eslint-disable-next-line @next/next/no-img-element -- animated WebP; next/image would serve a still
+        <img src="/images/dog-running.webp" alt="" width={244} height={142} fetchPriority="high" decoding="sync" draggable={false} />
+      }
+      loaderLabel="Fetching"
+      loaderMinMs={1200}
       brand={<Logo />}
       navLinks={navLinks}
       ctaLabel="Download Now"

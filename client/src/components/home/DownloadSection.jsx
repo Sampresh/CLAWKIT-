@@ -5,11 +5,11 @@ export function DownloadSection() {
   return (
     <section id="download" className="relative z-10 bg-surface py-24 sm:py-32">
       <div className="container-page">
-        <div className="relative overflow-hidden rounded-[36px] bg-ink px-6 py-16 text-white sm:px-14 sm:py-20">
+        <div className="relative overflow-hidden rounded-[36px] bg-brand-navy px-6 py-16 text-white sm:px-14 sm:py-20">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-32 -top-32 h-[28rem] w-[28rem] rounded-full opacity-40 blur-3xl"
-            style={{ background: 'radial-gradient(circle, #ff6a3d, #ff3d7f 40%, transparent 70%)' }}
+            style={{ background: 'radial-gradient(circle, rgb(var(--brand)), rgb(var(--brand-paw)) 40%, transparent 70%)' }}
           />
           <div className="relative grid items-center gap-12 lg:grid-cols-[1.3fr_1fr]">
             <div>

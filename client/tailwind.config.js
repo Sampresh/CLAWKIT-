@@ -14,6 +14,8 @@ module.exports = {
           DEFAULT: 'rgb(var(--brand) / <alpha-value>)',
           soft: 'rgb(var(--brand-soft) / <alpha-value>)',
           ink: 'rgb(var(--brand-ink) / <alpha-value>)',
+          navy: 'rgb(var(--brand-navy) / <alpha-value>)',
+          paw: 'rgb(var(--brand-paw) / <alpha-value>)',
         },
         danger: 'rgb(var(--danger) / <alpha-value>)',
         success: 'rgb(var(--success) / <alpha-value>)',

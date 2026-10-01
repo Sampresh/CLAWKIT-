@@ -2,16 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design tokens — mirrored in tailwind.config.js. Values are "R G B" so Tailwind can apply alpha. */
+/* Design tokens — mirrored in tailwind.config.js. Values are "R G B" so Tailwind can apply alpha.
+   Brand colours are sampled from the CLAWKIT logo (public/images/clawkit-logo.png). */
 :root {
-  --bg: 251 250 247;
+  --bg: 249 248 242;
   --surface: 255 255 255;
-  --ink: 13 15 20;
-  --muted: 91 97 112;
-  --line: 231 228 221;
-  --brand: 255 106 61;
-  --brand-soft: 255 237 229;
+  --ink: 10 27 51;
+  --muted: 84 98 120;
+  --line: 226 228 230;
+  --brand: 35 106 187;
+  --brand-soft: 229 238 248;
   --brand-ink: 255 255 255;
+  --brand-navy: 11 60 110;
+  --brand-paw: 85 134 182;
   --danger: 220 38 38;
   --success: 22 163 74;
   --nav-h: 64px;
@@ -79,44 +82,76 @@ body {
   background: rgb(var(--bg));
 }
 
-/* Loader */
+/* Loader — the dog runs in place, centred above a progress track (--p, 0–1). */
 .fsh-loader {
+  --track-w: min(320px, calc(100vw - 64px));
+  --runner-w: 128px;
   position: fixed;
   inset: 0;
   z-index: 70;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
+  display: grid;
+  place-items: center;
   background: rgb(var(--bg));
-  transition: opacity 600ms ease, visibility 600ms ease;
+  transition: opacity 500ms ease 250ms, visibility 0s linear 750ms;
 }
 .fsh-loader-done {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
-.fsh-loader-text {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgb(var(--muted));
-  font-variant-numeric: tabular-nums;
+.fsh-loader-stage {
+  width: var(--track-w);
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1) 200ms;
+}
+.fsh-loader-done .fsh-loader-stage {
+  transform: translateY(-8px);
+}
+.fsh-loader-lane {
+  position: relative;
+  height: calc(var(--runner-w) * 0.582);
+}
+.fsh-loader-runner {
+  position: absolute;
+  bottom: -5px; /* the dog's own shadow lands on the track */
+  left: 50%;
+  width: var(--runner-w);
+  transform: translateX(-50%);
+}
+.fsh-loader-runner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
 }
 .fsh-loader-track {
-  width: 180px;
-  height: 3px;
+  position: relative;
+  height: 4px;
   border-radius: 999px;
   background: rgb(var(--line));
   overflow: hidden;
 }
 .fsh-loader-fill {
-  display: block;
-  height: 100%;
-  background: rgb(var(--brand));
-  transition: width 200ms linear;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgb(var(--brand-paw)), rgb(var(--brand)));
+  transform: scaleX(var(--p));
+  transform-origin: left center;
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fsh-loader-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+.fsh-loader-pct {
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--brand-navy));
 }
 
 /* Nav */
@@ -153,15 +188,15 @@ body {
   align-items: inherit;
   gap: inherit;
 }
-.fsh-brand-dot {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  color: #fff;
-  background: linear-gradient(135deg, rgb(var(--brand)), #ff3d7f);
-  box-shadow: 0 6px 16px -6px rgb(var(--brand) / 0.7);
+.fsh-brand-mark {
+  display: block;
+  flex-shrink: 0;
+}
+.fsh-brand-claw {
+  color: rgb(var(--brand-navy));
+}
+.fsh-brand-kit {
+  color: rgb(var(--brand-paw));
 }
 .fsh-nav-links {
   display: none;
@@ -187,7 +222,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   color: #fff;
-  background: rgb(var(--ink));
+  background: rgb(var(--brand-navy));
   transition: background-color 200ms ease, transform 200ms ease;
 }
 .fsh-cta:hover {
@@ -264,10 +299,10 @@ body {
   letter-spacing: -0.05em;
 }
 .fsh-title-dark {
-  color: rgb(var(--ink));
+  color: rgb(var(--brand-navy));
 }
 .fsh-title-rainbow {
-  background: linear-gradient(90deg, #ff6a3d, #ff3d7f, #8b5cf6, #3b82f6, #ff6a3d);
+  background: linear-gradient(90deg, rgb(var(--brand-paw)), rgb(var(--brand)), #7fb0e0, rgb(var(--brand-paw)));
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -448,12 +483,21 @@ body {
 .fsh-progress-fill {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, rgb(var(--brand)), #ff3d7f, #8b5cf6);
+  background: linear-gradient(90deg, rgb(var(--brand-navy)), rgb(var(--brand)), rgb(var(--brand-paw)));
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .fsh-loader-lane {
+    display: none;
+  }
+  .fsh-loader,
+  .fsh-loader-stage,
+  .fsh-loader-fill {
+    transition-duration: 0s;
+    transition-delay: 0s;
   }
   .fsh-title-rainbow {
     animation: none;

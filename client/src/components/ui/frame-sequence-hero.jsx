@@ -26,6 +26,9 @@ export function FrameSequenceHero({
   framePath,
   eagerCount = 140,
   scrollHeight = '600vh',
+  loaderArt,
+  loaderLabel = 'Loading',
+  loaderMinMs = 0,
   brand,
   navLinks = [],
   ctaLabel,
@@ -77,16 +80,23 @@ export function FrameSequenceHero({
 
   useEffect(() => {
     const eager = Math.min(eagerCount, frameCount);
+    const startedAt = performance.now();
+    let doneTimer;
+    // Effects can run twice (React StrictMode in dev): start the count fresh and ignore a cancelled run's callbacks.
+    let cancelled = false;
+    loadedRef.current = 0;
     const loadOne = (i) => {
       const img = new Image();
       img.decoding = 'async';
       img.src = framePath(i + 1);
       const onSettle = () => {
+        if (cancelled) return;
         loadedRef.current += 1;
-        const pct = Math.round((loadedRef.current / frameCount) * 100);
-        setLoadPct(pct);
+        // The loader waits for the eager frames only, so progress is measured against those.
+        setLoadPct(Math.min(100, Math.round((loadedRef.current / eager) * 100)));
         if (loadedRef.current === eager) {
-          setLoaderDone(true);
+          // Keep the loader up for at least loaderMinMs so it never just flashes.
+          doneTimer = setTimeout(() => setLoaderDone(true), Math.max(0, loaderMinMs - (performance.now() - startedAt)));
           for (let j = eager; j < frameCount; j++) loadOne(j);
         }
       };
@@ -95,6 +105,10 @@ export function FrameSequenceHero({
       cacheRef.current[i] = img;
     };
     for (let i = 0; i < eager; i++) loadOne(i);
+    return () => {
+      cancelled = true;
+      clearTimeout(doneTimer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frameCount, eagerCount]);
 
@@ -135,10 +149,20 @@ export function FrameSequenceHero({
 
   return (
     <div className={cx('fsh-root', className)}>
-      <div aria-hidden className={cx('fsh-loader', loaderDone && 'fsh-loader-done')}>
-        <div className="fsh-loader-text">{loadPct < 100 ? `Loading · ${loadPct}%` : 'Ready'}</div>
-        <div className="fsh-loader-track">
-          <span className="fsh-loader-fill" style={{ width: `${loadPct}%` }} />
+      <div aria-hidden className={cx('fsh-loader', loaderDone && 'fsh-loader-done')} style={{ '--p': loadPct / 100 }}>
+        <div className="fsh-loader-stage">
+          {loaderArt && (
+            <div className="fsh-loader-lane">
+              <div className="fsh-loader-runner">{loaderArt}</div>
+            </div>
+          )}
+          <div className="fsh-loader-track">
+            <span className="fsh-loader-fill" />
+          </div>
+          <div className="fsh-loader-meta">
+            <span>{loadPct < 100 ? loaderLabel : 'Ready'}</span>
+            <span className="fsh-loader-pct">{loadPct}%</span>
+          </div>
         </div>
       </div>
 
