@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+}
+
+model User {
+  id                   String         @id @default(cuid())
+  email                String         @unique
+  name                 String?
+  passwordHash         String
+  role                 Role           @default(ADMIN)
+  emailVerified        Boolean        @default(false)
+  failedLoginAttempts  Int            @default(0)
+  lockedUntil          DateTime?
+  passwordResetHash    String?        @unique
+  passwordResetExpires DateTime?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  refreshTokens        RefreshToken[]
+}
+
+// Hashed refresh tokens. Rotated on every refresh; reuse of a revoked token revokes the whole family.
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  family    String
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([family])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  topic     String
+  dogName   String?
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,25 @@
+# env / secrets
+.env
+.env.local
+.env.*.local
+server/.env
+client/.env.local
+
+# deps & builds
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# logs & runtime
+logs/
+*.log
+npm-debug.log*
+uploads/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

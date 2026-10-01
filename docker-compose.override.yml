@@ -1,0 +1,10 @@
+# Local development overrides: live-reload the API from source.
+services:
+  server:
+    command: sh -c "npx prisma migrate deploy && npm run dev"
+    volumes:
+      - ./server:/app
+      - server_node_modules:/app/node_modules
+
+volumes:
+  server_node_modules:
