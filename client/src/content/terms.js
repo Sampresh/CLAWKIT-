@@ -4,6 +4,8 @@
 // Blocks: { p }, { ul: [] }, { h3 }, { callout: { tone: 'warning' | 'note', title?, text } }.
 // Section ids are public anchors (clawkit.us/terms#<id>) — the app may deep-link to them, so don't rename.
 
+import { site } from '@/lib/site';
+
 export const termsMeta = {
   title: 'Terms of Service',
   updated: 'September 6, 2026',
@@ -328,7 +330,7 @@ export const termsSections = [
     contact: {
       company: 'Ausasi LLC',
       location: 'Tyler, Texas, United States',
-      email: 'ausasi.socials@gmail.com',
+      email: site.email,
     },
   },
 ];

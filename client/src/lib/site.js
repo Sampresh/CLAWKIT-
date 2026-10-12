@@ -6,7 +6,7 @@ export const site = {
   description:
     'CLAWKIT helps you log your dog’s seizures in seconds, track medication, spot patterns, and share clear reports with your vet. Available on iPhone and Android.',
   url: stripSlash(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  email: 'pawtrack@ausasi.com',
+  email: 'supportclawkit@gmail.com',
   appStoreUrl: process.env.NEXT_PUBLIC_APP_STORE_URL || '#download',
   playStoreUrl: process.env.NEXT_PUBLIC_PLAY_STORE_URL || '#download',
   // Contact and newsletter forms need the API; without it the site runs fully static.

@@ -2,7 +2,7 @@ import { posts } from '@/content/posts';
 import { site } from '@/lib/site';
 
 export default function sitemap() {
-  const pages = ['', '/about', '/blog', '/contact', '/privacy', '/terms'].map((path) => ({
+  const pages = ['', '/about', '/blog', '/contact', '/privacy', '/terms', '/account-delete'].map((path) => ({
     url: `${site.url}${path}`,
     changeFrequency: path === '' || path === '/blog' ? 'weekly' : 'monthly',
     priority: path === '' ? 1 : 0.6,

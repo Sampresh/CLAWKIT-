@@ -26,6 +26,7 @@ const columns = [
     links: [
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms of Service', href: '/terms' },
+      { label: 'Delete account', href: '/account-delete' },
     ],
   },
 ];
